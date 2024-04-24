@@ -1,5 +1,7 @@
+import ComicList from "./ComicList/ComicList";
+
 const AppContainer = () => {
-  return <div>AppContainer</div>;
+  return <ComicList />;
 };
 
 export default AppContainer;

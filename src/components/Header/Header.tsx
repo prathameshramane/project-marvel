@@ -10,10 +10,9 @@ const Header = () => {
         md: `"logo search"`,
       }}
       templateColumns={{ base: "1fr", md: "12rem 1fr" }}
-      margin="1rem"
-      padding="1rem"
-      backgroundColor="gray.50"
+      my="1rem"
       borderRadius={16}
+      borderWidth="1px"
     >
       <GridItem area="logo">
         <Center>

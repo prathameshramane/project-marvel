@@ -1,5 +1,7 @@
-import { Grid, GridItem, Show } from "@chakra-ui/react";
+import { Container, Grid, GridItem, Show } from "@chakra-ui/react";
 import Header from "./components/Header/Header";
+import SideBar from "./components/SideBar/SideBar";
+import AppContainer from "./components/AppContainer/AppContainer";
 
 function App() {
   return (
@@ -9,19 +11,21 @@ function App() {
         md: `"nav nav" "sidebar content"`,
       }}
       gridTemplateColumns={{ base: "1fr", md: "18rem 1fr" }}
+      backgroundColor="gray.50"
+      px={"1rem"}
     >
-      <GridItem backgroundColor="orange.300" area="nav">
+      <GridItem area="nav">
         <Header />
       </GridItem>
 
       <Show above="md">
-        <GridItem backgroundColor="yellow.300" area="sidebar">
-          SideBar
+        <GridItem area="sidebar">
+          <SideBar />
         </GridItem>
       </Show>
 
-      <GridItem backgroundColor="pink.300" area="content">
-        Content
+      <GridItem area="content">
+        <AppContainer />
       </GridItem>
     </Grid>
   );
