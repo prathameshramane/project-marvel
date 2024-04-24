@@ -13,6 +13,7 @@ const Header = () => {
       my="1rem"
       borderRadius={16}
       borderWidth="1px"
+      bgColor="white"
     >
       <GridItem area="logo">
         <Center>

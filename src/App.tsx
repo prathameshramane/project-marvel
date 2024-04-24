@@ -12,7 +12,7 @@ function App() {
       }}
       gridTemplateColumns={{ base: "1fr", md: "18rem 1fr" }}
       backgroundColor="gray.50"
-      px={"1rem"}
+      p="1rem"
     >
       <GridItem area="nav">
         <Header />
