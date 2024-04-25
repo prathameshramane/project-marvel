@@ -10,7 +10,7 @@ const Header = () => {
         md: `"logo search"`,
       }}
       templateColumns={{ base: "1fr", md: "12rem 1fr" }}
-      my="1rem"
+      mb="1rem"
       borderRadius={16}
       borderWidth="1px"
       bgColor="white"

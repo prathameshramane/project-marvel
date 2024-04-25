@@ -1,4 +1,4 @@
-import { Container, Grid, GridItem, Show } from "@chakra-ui/react";
+import { Grid, GridItem, Show } from "@chakra-ui/react";
 import Header from "./components/Header/Header";
 import SideBar from "./components/SideBar/SideBar";
 import AppContainer from "./components/AppContainer/AppContainer";
