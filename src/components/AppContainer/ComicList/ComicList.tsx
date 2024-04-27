@@ -1,6 +1,7 @@
 import { Grid, GridItem } from "@chakra-ui/react";
 import useComics from "../../../hooks/useComics";
 import ComicCard from "./ComicCard/ComicCard";
+import ComicCardsShimmer from "./ComicCard/ComicCardsShimmer";
 
 const ComicList = () => {
   const { isLoading, data, error } = useComics();
@@ -8,7 +9,7 @@ const ComicList = () => {
     (card) => !card.thumbnail.path.includes("image_not_available")
   );
 
-  if (isLoading) return null;
+  if (isLoading) return <ComicCardsShimmer />;
 
   return (
     <Grid
@@ -18,7 +19,7 @@ const ComicList = () => {
         md: "repeat(2, 1fr)",
         lg: "repeat(3, 1fr)",
         xl: "repeat(4, 1fr)",
-        "2xl": "repeat(5, 1fr)"
+        "2xl": "repeat(5, 1fr)",
       }}
       height="100%"
     >

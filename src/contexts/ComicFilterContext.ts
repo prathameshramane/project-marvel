@@ -1,7 +1,7 @@
 import { createContext } from "react";
 
 export interface ComicFilterState {
-  appliedFilter: string;
+  appliedFilter: string | null;
   updateAppliedFilter: (filter: string) => void;
 }
 

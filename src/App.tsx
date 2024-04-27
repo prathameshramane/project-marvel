@@ -10,7 +10,7 @@ import ComicFilterContext, {
 
 function App() {
   const [filter, setFilter] = useState<ComicFilterState>({
-    appliedFilter: "",
+    appliedFilter: null,
     updateAppliedFilter: (appliedFilter: string) => {
       setFilter({ ...filter, appliedFilter });
     },
