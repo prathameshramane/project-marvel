@@ -6,14 +6,17 @@ interface Params {
   [key: string]: string;
 }
 
-const useData = <T>(url: string, params?: Params) => {
+const useData = <T>(url: string, params?: Params, dependencies?: any[]) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<MarvelClientResponse<T> | null>(null);
   const [data, setData] = useState<MarvelClientResponse<T> | null>(null);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  useEffect(
+    () => {
+      fetchData();
+    },
+    dependencies ? [...dependencies] : []
+  );
 
   const fetchData = () => {
     let configs = {};
