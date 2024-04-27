@@ -17,7 +17,7 @@ const ComicCardsShimmer = () => {
         .fill("")
         ?.map((item, index) => (
           <GridItem key={index}>
-            <Skeleton height="28rem" />
+            <Skeleton height="25rem" />
           </GridItem>
         ))}
     </Grid>

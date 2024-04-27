@@ -13,7 +13,7 @@ const ComicCard = ({ comic }: Props) => {
       boxShadow="lg"
       transition="transform 0.3s ease-in-out"
       _hover={{ zIndex: 10, transform: "scale(1.3)" }}
-      height="28rem"
+      height="25rem"
     >
       <Image
         src={comic.thumbnail.path + "." + comic.thumbnail.extension}
