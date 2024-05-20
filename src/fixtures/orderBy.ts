@@ -25,3 +25,5 @@ const orderByFields: OrderByField[] = [
     slug: "modified",
   },
 ];
+
+export default orderByFields;

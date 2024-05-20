@@ -1,5 +1,5 @@
 import { Box, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
-import { FaChevronDown } from "react-icons/fa";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import React, { useRef, useState } from "react";
 
 interface MarvelSelectProps {
@@ -12,11 +12,11 @@ interface MarvelSelectProps {
 const MarvelSelect: React.FC<MarvelSelectProps> = (
   props: MarvelSelectProps
 ) => {
-  const [isFocused, setIsFocused] = useState<boolean>(true);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   return (
-    <>
+    <Box>
       <InputGroup>
         <Input
           ref={inputRef}
@@ -24,16 +24,12 @@ const MarvelSelect: React.FC<MarvelSelectProps> = (
           h={props.h ?? 10}
           borderRadius={8}
           readOnly
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          cursor="pointer"
           value={props.selectedOption}
+          cursor="pointer"
+          onClick={() => setIsFocused(!isFocused)}
         ></Input>
-        <InputRightElement>
-          <FaChevronDown
-            color="green.500"
-            onClick={() => inputRef.current?.focus()}
-          />
+        <InputRightElement onClick={() => setIsFocused(!isFocused)}>
+          {isFocused ? <FaChevronUp /> : <FaChevronDown />}
         </InputRightElement>
       </InputGroup>
       {isFocused && (
@@ -51,7 +47,7 @@ const MarvelSelect: React.FC<MarvelSelectProps> = (
           {props.children}
         </Box>
       )}
-    </>
+    </Box>
   );
 };
 

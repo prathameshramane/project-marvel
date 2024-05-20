@@ -1,5 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
+import OrderByFilter from "./OrderByFilter";
 
 const TopBar: React.FC = () => {
   return (
@@ -11,7 +12,9 @@ const TopBar: React.FC = () => {
       mb={2}
       borderRadius="lg"
     >
-        
+      <Box maxW={72}>
+        <OrderByFilter />
+      </Box>
     </Box>
   );
 };
