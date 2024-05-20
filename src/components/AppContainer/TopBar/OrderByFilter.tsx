@@ -1,22 +1,29 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import MarvelSelect from "../../../utils/components/MarvelSelect/MarvelSelect";
 import MarvelSelectOption from "../../../utils/components/MarvelSelect/MarvelSelectOption";
 import { IconButton } from "@chakra-ui/react";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import orderByFields from "../../../fixtures/orderBy";
+import ComicFilterContext from "../../../contexts/ComicFilterContext";
 
 const OrderByFilter: React.FC = () => {
-  const [selectedOption, setSelectedOption] = useState<string | undefined>(
-    "select"
-  );
-  const [currentQuery, setCurrentQuery] = useState<string | null>();
+  const [selectedOption, setSelectedOption] = useState<string | undefined>();
+  const [currentQuery, setCurrentQuery] = useState<string | null>(null);
+  const comicFilterContext = useContext(ComicFilterContext);
+
+  const updateQuery = (updatedQuery: string | null): void => {
+    comicFilterContext?.updateAppliedFilter({
+      orderBy: updatedQuery ?? undefined,
+    });
+    setCurrentQuery(updatedQuery);
+  };
 
   const handleSelection = (values: {
     selectedValue: string | null;
     selectedLabel?: string;
   }): void => {
     setSelectedOption(values.selectedLabel);
-    setCurrentQuery(values.selectedValue);
+    updateQuery(values.selectedValue);
   };
 
   const isOptionSelected = (currentOption: string): boolean => {
@@ -35,18 +42,19 @@ const OrderByFilter: React.FC = () => {
         ? label + " (DESC)"
         : label + " (ASC)";
       setSelectedOption(updatedLabel);
-      setCurrentQuery(updatedQuery);
+      updateQuery(updatedQuery);
     } else {
       setSelectedOption(label);
-      setCurrentQuery("-" + query);
+      updateQuery("-" + query);
     }
   };
 
   return (
-    <MarvelSelect selectedOption={selectedOption}>
+    <MarvelSelect selectedOption={currentQuery ? selectedOption : "Order By"}>
       <MarvelSelectOption
-        label="select"
+        label="Select"
         value={null}
+        isSelected={currentQuery === null}
         onSelect={handleSelection}
       ></MarvelSelectOption>
       {orderByFields.map((field) => (

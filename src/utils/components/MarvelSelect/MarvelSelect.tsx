@@ -16,7 +16,7 @@ const MarvelSelect: React.FC<MarvelSelectProps> = (
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   return (
-    <Box>
+    <Box position="relative" w={props?.w ?? "full"}>
       <InputGroup>
         <Input
           ref={inputRef}
@@ -38,7 +38,7 @@ const MarvelSelect: React.FC<MarvelSelectProps> = (
           minH={4}
           border="1px solid #dcdcdc"
           zIndex="10"
-          position="relative"
+          position="absolute"
           backgroundColor="white"
           borderRadius="lg"
           boxShadow="lg"

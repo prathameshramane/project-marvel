@@ -8,7 +8,10 @@ const useComics = () => {
   const comicFilter = useContext(ComicFilterContext);
   return useData<Comic>(
     "/comics",
-    { format: comicFilter?.appliedFilter ?? DEFAULT_FORMAT_TYPE },
+    {
+      format: comicFilter?.appliedFilter?.format ?? DEFAULT_FORMAT_TYPE,
+      orderBy: comicFilter?.appliedFilter?.orderBy ?? "",
+    },
     (comicFilter && [comicFilter.appliedFilter]) || []
   );
 };

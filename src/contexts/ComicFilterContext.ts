@@ -1,8 +1,15 @@
 import { createContext } from "react";
 
+export interface AppliedFilter {
+  format?: string;
+  dateDescriptor?: string;
+  titleStartsWith?: string;
+  orderBy?: string;
+}
+
 export interface ComicFilterState {
-  appliedFilter: string | null;
-  updateAppliedFilter: (filter: string) => void;
+  appliedFilter: AppliedFilter | null;
+  updateAppliedFilter: (filter: AppliedFilter) => void;
 }
 
 const ComicFilterContext = createContext<ComicFilterState | null>(null);
