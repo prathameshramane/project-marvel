@@ -18,9 +18,10 @@ const SideBar = () => {
             as={Link}
             key={filter.query}
             p={2}
-            onClick={() => comicFilterContext.updateAppliedFilter(filter.query)}
+            onClick={() => comicFilterContext.updateAppliedFilter({format: filter.query})}
+            fontWeight={comicFilterContext?.appliedFilter?.format === filter.query ? 600 : "default"}
           >
-            <ListIcon as={filter.icon} color="red.500" /> {filter.name}
+            <ListIcon as={filter.icon} color="red.500" />{filter.name}
           </ListItem>
         ))}
       </Stack>

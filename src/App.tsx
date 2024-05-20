@@ -13,10 +13,10 @@ function App() {
   const [filter, setFilter] = useState<ComicFilterState>({
     appliedFilter: null,
     updateAppliedFilter: (appliedFilter: AppliedFilter) => {
-      setFilter({
-        ...filter,
-        appliedFilter: { ...filter.appliedFilter, ...appliedFilter },
-      });
+      setFilter((prevState) => ({
+        ...prevState,
+        appliedFilter: { ...prevState.appliedFilter, ...appliedFilter },
+      }));
     },
   });
 

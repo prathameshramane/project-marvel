@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
 import marvelClient from "../utils/marvelClient";
 import MarvelClientResponse from "../interfaces/MarvelClientResponse.interface";
+import { ComicQueryParams } from "./useComics";
 
-interface Params {
-  [key: string]: string;
-}
-
-const useData = <T>(url: string, params?: Params, dependencies?: any[]) => {
+const useData = <T>(url: string, params?: ComicQueryParams, dependencies?: any[]) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<MarvelClientResponse<T> | null>(null);
   const [data, setData] = useState<MarvelClientResponse<T> | null>(null);

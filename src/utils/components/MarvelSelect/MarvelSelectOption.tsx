@@ -22,7 +22,7 @@ const MarvelSelectOption: React.FC<MarvelSelectOptionProps> = ({
   EndButton,
 }: MarvelSelectOptionProps) => {
   return (
-    <Box sx={{ ":hover": { bg: "blue.100" } }} p={1} borderRadius="lg" bg={isSelected ? "blue.100" : "inherit"}>
+    <Box sx={{ ":hover": { bg: "blue.100" } }} p={1} m={1} borderRadius="lg" bg={isSelected ? "blue.100" : "inherit"}>
       <Flex alignItems="center" gap="0.5rem">
         {StartButton && <StartButton />}
         <Text
