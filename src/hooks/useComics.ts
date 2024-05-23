@@ -3,6 +3,7 @@ import Comic from "../interfaces/Comics.interface";
 import useData from "./useData";
 import ComicFilterContext from "../contexts/ComicFilterContext";
 import { DEFAULT_FORMAT_TYPE } from "../constants/marvelClient.constants";
+import { useQueryClient, useQuery } from "@tanstack/react-query";
 
 export interface ComicQueryParams {
   format: string;
