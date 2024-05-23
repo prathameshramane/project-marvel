@@ -61,7 +61,9 @@ const useComics = () => {
     staleTime: ms("24h"),
     initialPageParam: 0,
     getNextPageParam: (lastPage) => {
-      return lastPage.data.offset + PAGE_SIZE;
+      const hasNextPage =
+        lastPage.data.offset + PAGE_SIZE < lastPage.data.total;
+      return hasNextPage ? lastPage.data.offset + PAGE_SIZE : null;
     },
   });
 };

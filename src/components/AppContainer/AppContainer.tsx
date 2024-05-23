@@ -18,6 +18,7 @@ const AppContainer = () => {
           },
           scrollbarWidth: "none", // Hide scrollbar for Firefox
         }}
+        id="scrollable-comic-list"
       >
         <ComicList />
       </Box>
