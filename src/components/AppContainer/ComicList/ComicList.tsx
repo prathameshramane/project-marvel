@@ -4,7 +4,7 @@ import ComicCard from "./ComicCard/ComicCard";
 import ComicCardsShimmer from "./ComicCard/ComicCardsShimmer";
 
 const ComicList = () => {
-  const { isLoading, data, error } = useComics();
+  const { isLoading, data } = useComics();
   const comics = data?.data?.results.filter(
     (card) => !card.thumbnail.path.includes("image_not_available")
   );

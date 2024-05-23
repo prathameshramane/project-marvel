@@ -1,9 +1,12 @@
 import { useContext } from "react";
+import { useQuery } from "@tanstack/react-query";
+import ms from "ms";
+
 import Comic from "../interfaces/Comics.interface";
-import useData from "./useData";
 import ComicFilterContext from "../contexts/ComicFilterContext";
 import { DEFAULT_FORMAT_TYPE } from "../constants/marvelClient.constants";
-import { useQueryClient, useQuery } from "@tanstack/react-query";
+import marvelClient from "../utils/marvelClient";
+import MarvelClientResponse from "../interfaces/MarvelClientResponse.interface";
 
 export interface ComicQueryParams {
   format: string;
@@ -33,11 +36,14 @@ const useComics = () => {
     queryParams.dateDescriptor = comicFilter.appliedFilter.dateDescriptor;
   }
 
-  return useData<Comic>(
-    "/comics",
-    queryParams,
-    (comicFilter && [comicFilter.appliedFilter]) || []
-  );
+  return useQuery<MarvelClientResponse<Comic>>({
+    queryKey: queryParams ? ["comics", queryParams] : ["comics"],
+    queryFn: () =>
+      marvelClient
+        .get<MarvelClientResponse<Comic>>("/comics", { params: queryParams })
+        .then((res) => res.data),
+    staleTime: ms("24h"),
+  });
 };
 
 export default useComics;
