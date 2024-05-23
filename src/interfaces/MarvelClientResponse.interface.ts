@@ -1,7 +1,7 @@
 export default interface MarvelClientResponse<T> {
   code: number;
   status: string;
-  data?: MarvelClientData<T>;
+  data: MarvelClientData<T>;
 }
 
 export interface MarvelClientData<T> {

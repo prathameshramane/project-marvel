@@ -1,16 +1,10 @@
-import { Grid, GridItem } from "@chakra-ui/react";
+import { Button, Grid, GridItem } from "@chakra-ui/react";
 import useComics from "../../../hooks/useComics";
 import ComicCard from "./ComicCard/ComicCard";
 import ComicCardsShimmer from "./ComicCard/ComicCardsShimmer";
 
 const ComicList = () => {
-  const { isLoading, data } = useComics();
-  const comics = data?.data?.results.map((card) => {
-    if (card.thumbnail.path.includes("image_not_available")) {
-      card.thumbnail.path = 'No Preview';
-    }
-    return card;
-  });
+  const { isLoading, data, isFetchingNextPage, fetchNextPage } = useComics();
 
   if (isLoading) return <ComicCardsShimmer />;
 
@@ -26,11 +20,13 @@ const ComicList = () => {
       }}
       height="100%"
     >
-      {comics?.map((comic) => (
-        <GridItem key={comic.id}>
-          <ComicCard comic={comic} />
-        </GridItem>
-      ))}
+      {data?.pages.map((page) =>
+        page.data.results?.map((comic) => (
+          <GridItem key={comic.id}>
+            <ComicCard comic={comic} />
+          </GridItem>
+        ))
+      )}
     </Grid>
   );
 };

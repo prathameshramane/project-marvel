@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import ms from "ms";
 
 import Comic from "../interfaces/Comics.interface";
@@ -8,12 +8,23 @@ import { DEFAULT_FORMAT_TYPE } from "../constants/marvelClient.constants";
 import marvelClient from "../utils/marvelClient";
 import MarvelClientResponse from "../interfaces/MarvelClientResponse.interface";
 
+const PAGE_SIZE = 20;
+
 export interface ComicQueryParams {
   format: string;
   orderBy: string;
   dateDescriptor?: string;
   titleStartsWith?: string;
 }
+
+const parseThumbnailImages = (comics: Comic[]): Comic[] => {
+  return comics.map((card) => {
+    if (card.thumbnail.path.includes("image_not_available")) {
+      card.thumbnail.path = "No Preview";
+    }
+    return card;
+  });
+};
 
 const useComics = () => {
   const comicFilter = useContext(ComicFilterContext);
@@ -36,13 +47,22 @@ const useComics = () => {
     queryParams.dateDescriptor = comicFilter.appliedFilter.dateDescriptor;
   }
 
-  return useQuery<MarvelClientResponse<Comic>>({
+  return useInfiniteQuery<MarvelClientResponse<Comic>>({
     queryKey: queryParams ? ["comics", queryParams] : ["comics"],
-    queryFn: () =>
+    queryFn: ({ pageParam }) =>
       marvelClient
-        .get<MarvelClientResponse<Comic>>("/comics", { params: queryParams })
-        .then((res) => res.data),
+        .get<MarvelClientResponse<Comic>>("/comics", {
+          params: { offset: pageParam, ...queryParams },
+        })
+        .then((res) => {
+          res.data.data.results = parseThumbnailImages(res.data.data.results);
+          return res.data;
+        }),
     staleTime: ms("24h"),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => {
+      return lastPage.data.offset + PAGE_SIZE;
+    },
   });
 };
 
