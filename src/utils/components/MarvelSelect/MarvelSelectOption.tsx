@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text, useColorMode } from "@chakra-ui/react";
 import React from "react";
 
 interface MarvelSelectOptionProps {
@@ -8,7 +8,7 @@ interface MarvelSelectOptionProps {
     selectedValue: string | null;
     selectedLabel?: string;
   }) => void;
-  isSelected?:boolean;
+  isSelected?: boolean;
   StartButton?: React.FC;
   EndButton?: React.FC;
 }
@@ -21,13 +21,27 @@ const MarvelSelectOption: React.FC<MarvelSelectOptionProps> = ({
   StartButton,
   EndButton,
 }: MarvelSelectOptionProps) => {
+  const { colorMode } = useColorMode();
   return (
-    <Box sx={{ ":hover": { bg: "blue.100" } }} p={1} m={1} borderRadius="lg" bg={isSelected ? "blue.100" : "inherit"}>
+    <Box
+      sx={{ ":hover": { bg: colorMode === "dark" ? "blue.900" : "blue.100" } }}
+      p={1}
+      m={1}
+      borderRadius="lg"
+      bg={
+        isSelected
+          ? colorMode === "dark"
+            ? "blue.900"
+            : "blue.100"
+          : "inherit"
+      }
+    >
       <Flex alignItems="center" gap="0.5rem">
         {StartButton && <StartButton />}
         <Text
           flex="1"
-          onClick={() => {onSelect({ selectedValue: value, selectedLabel: label });
+          onClick={() => {
+            onSelect({ selectedValue: value, selectedLabel: label });
           }}
           px={2}
         >

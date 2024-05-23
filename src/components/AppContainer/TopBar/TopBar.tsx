@@ -1,14 +1,16 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, useColorMode } from "@chakra-ui/react";
 import React from "react";
 import OrderByFilter from "./OrderByFilter";
 import DateDescriptorFilter from "./DateDescriptorFilter";
 
 const TopBar: React.FC = () => {
+  const { colorMode } = useColorMode();
+
   return (
     <Box
       width="full"
       height={16}
-      backgroundColor="white"
+      bgColor={colorMode === "dark" ? "gray.900" : "white"}
       mx={2}
       mb={2}
       borderRadius="lg"

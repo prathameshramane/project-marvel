@@ -1,4 +1,4 @@
-import { Box, Input, InputGroup, InputRightElement } from "@chakra-ui/react";
+import { Box, Input, InputGroup, InputRightElement, useColorMode } from "@chakra-ui/react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 import React, { useRef, useState } from "react";
 
@@ -14,6 +14,7 @@ const MarvelSelect: React.FC<MarvelSelectProps> = (
 ) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const { colorMode } = useColorMode();
 
   return (
     <Box position="relative" w={props?.w ?? "full"}>
@@ -39,7 +40,7 @@ const MarvelSelect: React.FC<MarvelSelectProps> = (
           border="1px solid #dcdcdc"
           zIndex="10"
           position="absolute"
-          backgroundColor="white"
+          bgColor={colorMode === "dark" ? "gray.900" : "white"}
           borderRadius="lg"
           boxShadow="lg"
           p={2}

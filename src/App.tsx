@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Grid, GridItem, Show } from "@chakra-ui/react";
+import { Grid, GridItem, Show, useColorMode } from "@chakra-ui/react";
 
 import Header from "./components/Header/Header";
 import SideBar from "./components/SideBar/SideBar";
@@ -19,6 +19,7 @@ function App() {
       }));
     },
   });
+  const { colorMode } = useColorMode();
 
   return (
     <ComicFilterContext.Provider value={filter}>
@@ -28,7 +29,7 @@ function App() {
           md: `"nav nav" "sidebar content"`,
         }}
         gridTemplateColumns={{ base: "1fr", md: "18rem 1fr" }}
-        backgroundColor="gray.50"
+        backgroundColor={colorMode === "dark" ? "blackAlpha.800" : "gray.50"}
         p="1rem"
       >
         <GridItem area="nav">

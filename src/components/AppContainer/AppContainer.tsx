@@ -11,7 +11,7 @@ const AppContainer = () => {
       <Box
         pl="1rem"
         overflowY="scroll"
-        height="85vh"
+        height="75vh"
         css={{
           "&::-webkit-scrollbar": {
             display: "none", // Hide scrollbar for Chrome, Safari, and Opera

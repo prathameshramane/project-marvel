@@ -1,4 +1,4 @@
-import { Link, List, ListIcon, ListItem, Stack } from "@chakra-ui/react";
+import { Link, List, ListIcon, ListItem, Stack, useColorMode } from "@chakra-ui/react";
 
 import { sidebarFilters } from "../../fixtures/sidebarFilters";
 import { useContext } from "react";
@@ -6,12 +6,13 @@ import ComicFilterContext from "../../contexts/ComicFilterContext";
 
 const SideBar = () => {
   const comicFilterContext = useContext(ComicFilterContext);
+  const { colorMode } = useColorMode();
 
   if (!comicFilterContext)
     throw new Error("SideBar should be used with ComicFilterContext");
 
   return (
-    <List spacing={3} fontSize="xl" bgColor="white" p={2} borderRadius="lg">
+    <List spacing={3} fontSize="xl" bgColor={colorMode === "dark" ? "gray.900" : "white"} p={2} borderRadius="lg">
       <Stack>
         {sidebarFilters.map((filter) => (
           <ListItem
