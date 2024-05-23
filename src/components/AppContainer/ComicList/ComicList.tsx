@@ -5,9 +5,12 @@ import ComicCardsShimmer from "./ComicCard/ComicCardsShimmer";
 
 const ComicList = () => {
   const { isLoading, data } = useComics();
-  const comics = data?.data?.results.filter(
-    (card) => !card.thumbnail.path.includes("image_not_available")
-  );
+  const comics = data?.data?.results.map((card) => {
+    if (card.thumbnail.path.includes("image_not_available")) {
+      card.thumbnail.path = 'No Preview';
+    }
+    return card;
+  });
 
   if (isLoading) return <ComicCardsShimmer />;
 
