@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { mountStoreDevtool } from "simple-zustand-devtools";
 
 export interface ComicFilter {
   format?: string;
@@ -26,5 +27,8 @@ const useComicFilterStore = create<ComicFilterStore>((set) => ({
   setOrderBy: (orderBy?: string) =>
     set((state) => ({ filters: { ...state.filters, orderBy } })),
 }));
+
+if (process.env.NODE_ENV === "development")
+  mountStoreDevtool("Comic Filter Store", useComicFilterStore);
 
 export default useComicFilterStore;
