@@ -1,12 +1,11 @@
-import { useContext } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import ms from "ms";
 
 import Comic from "../interfaces/Comics.interface";
-import ComicFilterContext from "../contexts/ComicFilterContext";
 import { DEFAULT_FORMAT_TYPE } from "../constants/marvelClient.constants";
 import marvelClient from "../utils/marvelClient";
 import MarvelClientResponse from "../interfaces/MarvelClientResponse.interface";
+import useComicFilterStore from "./useComicsFilterStore";
 
 const PAGE_SIZE = 20;
 
@@ -15,6 +14,7 @@ export interface ComicQueryParams {
   orderBy: string;
   dateDescriptor?: string;
   titleStartsWith?: string;
+  offset?: number;
 }
 
 const parseThumbnailImages = (comics: Comic[]): Comic[] => {
@@ -27,24 +27,24 @@ const parseThumbnailImages = (comics: Comic[]): Comic[] => {
 };
 
 const useComics = () => {
-  const comicFilter = useContext(ComicFilterContext);
+  const comicFilter = useComicFilterStore((state) => state.filters);
   let queryParams: ComicQueryParams = {
-    format: comicFilter?.appliedFilter?.format ?? DEFAULT_FORMAT_TYPE,
-    orderBy: comicFilter?.appliedFilter?.orderBy ?? "",
+    format: comicFilter.format ?? DEFAULT_FORMAT_TYPE,
+    orderBy: comicFilter.orderBy ?? "",
   };
 
   if (
-    comicFilter?.appliedFilter?.titleStartsWith &&
-    comicFilter.appliedFilter.titleStartsWith.length > 0
+    comicFilter.titleStartsWith &&
+    comicFilter.titleStartsWith.length > 0
   ) {
-    queryParams.titleStartsWith = comicFilter.appliedFilter.titleStartsWith;
+    queryParams.titleStartsWith = comicFilter.titleStartsWith;
   }
 
   if (
-    comicFilter?.appliedFilter?.dateDescriptor &&
-    comicFilter.appliedFilter.dateDescriptor.length > 0
+    comicFilter.dateDescriptor &&
+    comicFilter.dateDescriptor.length > 0
   ) {
-    queryParams.dateDescriptor = comicFilter.appliedFilter.dateDescriptor;
+    queryParams.dateDescriptor = comicFilter.dateDescriptor;
   }
 
   return useInfiniteQuery<MarvelClientResponse<Comic>>({

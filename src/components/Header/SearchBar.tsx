@@ -5,13 +5,13 @@ import {
   InputGroup,
   InputLeftAddon,
 } from "@chakra-ui/react";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-import ComicFilterContext from "../../contexts/ComicFilterContext";
+import useComicFilterStore from "../../hooks/useComicsFilterStore";
 
 const SearchBar = () => {
   const [searchFor, setSearchFor] = useState<string>("");
-  const comicFilterContext = useContext(ComicFilterContext);
+  const setTitleStartsWith = useComicFilterStore((state) => state.setTitleStartsWith);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -21,7 +21,7 @@ const SearchBar = () => {
   }, [searchFor]);
 
   const handleSearch = () => {
-    comicFilterContext?.updateAppliedFilter({ titleStartsWith: searchFor });
+    setTitleStartsWith(searchFor);
   };
 
   return (

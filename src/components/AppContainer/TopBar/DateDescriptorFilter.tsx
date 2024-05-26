@@ -1,18 +1,18 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import MarvelSelect from "../../../utils/components/MarvelSelect/MarvelSelect";
 import MarvelSelectOption from "../../../utils/components/MarvelSelect/MarvelSelectOption";
 import dateDescriptors from "../../../fixtures/dateDescriptors";
-import ComicFilterContext from "../../../contexts/ComicFilterContext";
+import useComicFilterStore from "../../../hooks/useComicsFilterStore";
 
 const DateDescriptorFilter: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string | undefined>();
   const [currentQuery, setCurrentQuery] = useState<string | null>(null);
-  const comicFilterContext = useContext(ComicFilterContext);
+  const setDateDescriptor = useComicFilterStore(
+    (state) => state.setDateDescriptor
+  );
 
   const updateQuery = (updatedQuery: string | null): void => {
-    comicFilterContext?.updateAppliedFilter({
-        dateDescriptor: updatedQuery ?? undefined,
-    });
+    setDateDescriptor(updatedQuery ?? undefined)
     setCurrentQuery(updatedQuery);
   };
 
@@ -32,7 +32,9 @@ const DateDescriptorFilter: React.FC = () => {
   };
 
   return (
-    <MarvelSelect selectedOption={currentQuery ? selectedOption : "Date Descriptor"}>
+    <MarvelSelect
+      selectedOption={currentQuery ? selectedOption : "Date Descriptor"}
+    >
       <MarvelSelectOption
         label="Select"
         value={null}

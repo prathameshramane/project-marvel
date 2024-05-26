@@ -1,28 +1,42 @@
-import { Link, List, ListIcon, ListItem, Stack, useColorMode } from "@chakra-ui/react";
+import {
+  Link,
+  List,
+  ListIcon,
+  ListItem,
+  Stack,
+  useColorMode,
+} from "@chakra-ui/react";
 
 import { sidebarFilters } from "../../fixtures/sidebarFilters";
-import { useContext } from "react";
-import ComicFilterContext from "../../contexts/ComicFilterContext";
+import useComicFilterStore from "../../hooks/useComicsFilterStore";
 
 const SideBar = () => {
-  const comicFilterContext = useContext(ComicFilterContext);
+  const setFormat = useComicFilterStore((state) => state.setFormat);
+  const format = useComicFilterStore((state) => state.filters.format);
   const { colorMode } = useColorMode();
 
-  if (!comicFilterContext)
-    throw new Error("SideBar should be used with ComicFilterContext");
-
   return (
-    <List spacing={3} fontSize="xl" bgColor={colorMode === "dark" ? "gray.900" : "white"} p={2} borderRadius="lg">
+    <List
+      spacing={3}
+      fontSize="xl"
+      bgColor={colorMode === "dark" ? "gray.900" : "white"}
+      p={2}
+      borderRadius="lg"
+    >
       <Stack>
         {sidebarFilters.map((filter) => (
           <ListItem
             as={Link}
             key={filter.query}
             p={2}
-            onClick={() => comicFilterContext.updateAppliedFilter({format: filter.query})}
-            fontWeight={comicFilterContext?.appliedFilter?.format === filter.query ? 600 : "default"}
+            onClick={() => {
+              setFormat(filter.query);
+              // comicFilterContext.updateAppliedFilter({ format: filter.query });
+            }}
+            fontWeight={format === filter.query ? 600 : "default"}
           >
-            <ListIcon as={filter.icon} color="red.500" />{filter.name}
+            <ListIcon as={filter.icon} color="red.500" />
+            {filter.name}
           </ListItem>
         ))}
       </Stack>

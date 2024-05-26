@@ -1,52 +1,36 @@
-import { useState } from "react";
 import { Grid, GridItem, Show, useColorMode } from "@chakra-ui/react";
 
 import Header from "./components/Header/Header";
 import SideBar from "./components/SideBar/SideBar";
 import AppContainer from "./components/AppContainer/AppContainer";
-import ComicFilterContext, {
-  AppliedFilter,
-  ComicFilterState,
-} from "./contexts/ComicFilterContext";
 
 function App() {
-  const [filter, setFilter] = useState<ComicFilterState>({
-    appliedFilter: null,
-    updateAppliedFilter: (appliedFilter: AppliedFilter) => {
-      setFilter((prevState) => ({
-        ...prevState,
-        appliedFilter: { ...prevState.appliedFilter, ...appliedFilter },
-      }));
-    },
-  });
   const { colorMode } = useColorMode();
 
   return (
-    <ComicFilterContext.Provider value={filter}>
-      <Grid
-        templateAreas={{
-          base: `"nav" "content"`,
-          md: `"nav nav" "sidebar content"`,
-        }}
-        gridTemplateColumns={{ base: "1fr", md: "18rem 1fr" }}
-        backgroundColor={colorMode === "dark" ? "blackAlpha.800" : "gray.50"}
-        p="1rem"
-      >
-        <GridItem area="nav">
-          <Header />
-        </GridItem>
+    <Grid
+      templateAreas={{
+        base: `"nav" "content"`,
+        md: `"nav nav" "sidebar content"`,
+      }}
+      gridTemplateColumns={{ base: "1fr", md: "18rem 1fr" }}
+      backgroundColor={colorMode === "dark" ? "blackAlpha.800" : "gray.50"}
+      p="1rem"
+    >
+      <GridItem area="nav">
+        <Header />
+      </GridItem>
 
-        <Show above="md">
-          <GridItem area="sidebar">
-            <SideBar />
-          </GridItem>
-        </Show>
-
-        <GridItem area="content">
-          <AppContainer />
+      <Show above="md">
+        <GridItem area="sidebar">
+          <SideBar />
         </GridItem>
-      </Grid>
-    </ComicFilterContext.Provider>
+      </Show>
+
+      <GridItem area="content">
+        <AppContainer />
+      </GridItem>
+    </Grid>
   );
 }
 

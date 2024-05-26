@@ -1,20 +1,18 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import MarvelSelect from "../../../utils/components/MarvelSelect/MarvelSelect";
 import MarvelSelectOption from "../../../utils/components/MarvelSelect/MarvelSelectOption";
 import { IconButton } from "@chakra-ui/react";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import orderByFields from "../../../fixtures/orderBy";
-import ComicFilterContext from "../../../contexts/ComicFilterContext";
+import useComicFilterStore from "../../../hooks/useComicsFilterStore";
 
 const OrderByFilter: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string | undefined>();
   const [currentQuery, setCurrentQuery] = useState<string | null>(null);
-  const comicFilterContext = useContext(ComicFilterContext);
+  const setOrderBy = useComicFilterStore((state) => state.setOrderBy);
 
   const updateQuery = (updatedQuery: string | null): void => {
-    comicFilterContext?.updateAppliedFilter({
-      orderBy: updatedQuery ?? undefined,
-    });
+    setOrderBy(updatedQuery || undefined);
     setCurrentQuery(updatedQuery);
   };
 
